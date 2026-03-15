@@ -4,7 +4,7 @@ import Button from "./ui/Button";
 
 export default function Hero({ dict }: { dict: Dictionary }) {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-navy via-navy-dark to-navy pb-20 pt-32 sm:pt-40">
+    <section className="relative overflow-hidden bg-red-600 pb-20 pt-32 sm:pt-40">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-teal blur-3xl" />
