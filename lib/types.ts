@@ -94,20 +94,6 @@ export interface Dictionary {
       privacyRequired: string;
     };
   };
-  servicesPage: {
-    title: string;
-    subtitle: string;
-    cta: string;
-    learnMore: string;
-    keyFeatures: string;
-    categories: Array<{
-      title: string;
-      icon: string;
-      description: string;
-      longDescription: string;
-      features: string[];
-    }>;
-  };
   footer: {
     tagline: string;
     contact: string;
