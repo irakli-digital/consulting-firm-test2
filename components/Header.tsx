@@ -15,7 +15,7 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
   }, []);
 
   const navItems = [
-    { href: "#services", label: dict.nav.services },
+    { href: `/${lang}/services`, label: dict.nav.services },
     { href: "#how-it-works", label: dict.nav.howItWorks },
     { href: "#guides", label: dict.nav.guides },
     { href: "#testimonials", label: dict.nav.testimonials },
