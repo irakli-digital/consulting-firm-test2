@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import type { Locale } from "@/lib/types";
 import getDictionary from "@/dictionaries/getDictionary";
 import { getLocalBusinessSchema, getFAQSchema } from "@/lib/structuredData";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import "../globals.css";
 
 const inter = Inter({
@@ -94,6 +95,7 @@ export default async function LangLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
       </head>
+      <GoogleAnalytics />
       <body className="antialiased">
         <a
           href="#main-content"
