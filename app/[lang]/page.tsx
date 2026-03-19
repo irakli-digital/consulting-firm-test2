@@ -1,5 +1,6 @@
 import type { Locale } from "@/lib/types";
-import { getDictionary } from "@/dictionaries/getDictionary";
+import { notFound } from "next/navigation";
+import getDictionary from "@/dictionaries/getDictionary";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import TrustBar from "@/components/TrustBar";
@@ -19,6 +20,10 @@ export default async function Page({
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
+  const supportedLocales = ["en", "ka"] as const;
+  if (!supportedLocales.includes(lang as any)) {
+    notFound();
+  }
   const locale = lang as Locale;
   const dict = await getDictionary(locale);
 

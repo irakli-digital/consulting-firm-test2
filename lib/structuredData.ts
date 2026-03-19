@@ -10,7 +10,7 @@ export function getLocalBusinessSchema(locale: Locale) {
       locale === "en"
         ? "Expert permit and licensing consulting services in Georgia"
         : "ნებართვებისა და ლიცენზიების საკონსულტაციო მომსახურება საქართველოში",
-    url: `${process.env.NEXT_PUBLIC_SITE_URL}/${locale}`,
+    url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://geopermit.ge"}/${locale}`,
     telephone: BRAND.contact.phone,
     email: BRAND.contact.email,
     address: {

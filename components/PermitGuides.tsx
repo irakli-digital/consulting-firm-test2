@@ -16,19 +16,19 @@ export default function PermitGuides({ dict }: { dict: Dictionary }) {
             <Accordion key={i} title={guide.title} defaultOpen={i === 0}>
               <div className="space-y-4 text-slate-600">
                 <div>
-                  <h4 className="font-semibold text-navy">What</h4>
+                  <h3 className="font-semibold text-navy">{dict.permitGuides.whatLabel}</h3>
                   <p>{guide.what}</p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-navy">Who</h4>
+                  <h3 className="font-semibold text-navy">{dict.permitGuides.whoLabel}</h3>
                   <p>{guide.who}</p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-navy">Documents</h4>
+                  <h3 className="font-semibold text-navy">{dict.permitGuides.docsLabel}</h3>
                   <p>{guide.docs}</p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-navy">Timeline</h4>
+                  <h3 className="font-semibold text-navy">{dict.permitGuides.timelineLabel}</h3>
                   <p>{guide.timeline}</p>
                 </div>
               </div>

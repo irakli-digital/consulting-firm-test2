@@ -15,7 +15,7 @@ export default function Accordion({ title, children, defaultOpen = false }: Acco
     <div className="border-b border-slate-200">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between py-5 text-left transition-colors hover:text-teal"
+        className="flex w-full items-center justify-between py-5 text-left transition-colors hover:text-teal focus:outline-none focus:ring-2 focus:ring-teal/50 rounded"
         aria-expanded={isOpen}
       >
         <span className="pr-4 text-lg font-medium text-navy">{title}</span>
@@ -32,7 +32,7 @@ export default function Accordion({ title, children, defaultOpen = false }: Acco
         </svg>
       </button>
       <div
-        className={`overflow-hidden transition-all duration-300 ${
+        className={`overflow-hidden transition-all duration-300 motion-reduce:transition-none ${
           isOpen ? "max-h-[1000px] pb-5 opacity-100" : "max-h-0 opacity-0"
         }`}
       >

@@ -1,10 +1,9 @@
 import type { Dictionary } from "@/lib/types";
 import Container from "./ui/Container";
-import Button from "./ui/Button";
 
 export default function Hero({ dict }: { dict: Dictionary }) {
   return (
-    <section className="relative overflow-hidden bg-red-600 pb-20 pt-32 sm:pt-40">
+    <section className="relative overflow-hidden bg-navy pb-20 pt-32 sm:pt-40">
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-teal blur-3xl" />
@@ -20,10 +19,8 @@ export default function Hero({ dict }: { dict: Dictionary }) {
             {dict.hero.subheadline}
           </p>
           <div className="mt-10">
-            <a href="#contact">
-              <Button size="lg" variant="primary">
-                {dict.hero.cta}
-              </Button>
+            <a href="#contact" className="inline-flex items-center justify-center rounded-lg bg-teal px-8 py-4 text-lg font-semibold text-white shadow-lg shadow-teal/30 transition-all duration-200 hover:bg-teal-light hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal">
+              {dict.hero.cta}
             </a>
           </div>
         </div>

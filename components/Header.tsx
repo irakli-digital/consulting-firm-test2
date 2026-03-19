@@ -15,7 +15,7 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
   }, []);
 
   const navItems = [
-    { href: `/${lang}/services`, label: dict.nav.services },
+    { href: "#services", label: dict.nav.services },
     { href: "#how-it-works", label: dict.nav.howItWorks },
     { href: "#guides", label: dict.nav.guides },
     { href: "#testimonials", label: dict.nav.testimonials },
@@ -25,7 +25,7 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 motion-reduce:transition-none ${
         scrolled ? "bg-white/95 backdrop-blur-sm shadow-md" : "bg-white"
       }`}
     >
@@ -40,7 +40,7 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
             <a
               key={item.href}
               href={item.href}
-              className="text-sm font-medium text-slate-600 transition-colors hover:text-teal"
+              className="text-sm font-medium text-slate-600 transition-colors hover:text-teal focus:outline-none focus:ring-2 focus:ring-teal/50 rounded"
             >
               {item.label}
             </a>
@@ -53,7 +53,7 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
           <LanguageToggle lang={lang} />
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-navy"
+            className="text-navy focus:outline-none focus:ring-2 focus:ring-teal/50 rounded-md"
             aria-label="Toggle menu"
             aria-expanded={isOpen}
           >
@@ -77,7 +77,7 @@ export default function Header({ lang, dict }: { lang: Locale; dict: Dictionary 
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="block rounded-lg px-4 py-3 text-base font-medium text-slate-600 transition-colors hover:bg-slate-50 hover:text-teal"
+                className="block rounded-lg px-4 py-3 text-base font-medium text-slate-600 transition-colors hover:bg-slate-50 hover:text-teal focus:outline-none focus:ring-2 focus:ring-teal/50"
               >
                 {item.label}
               </a>

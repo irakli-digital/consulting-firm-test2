@@ -33,7 +33,7 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: Dictionary 
                 href={BRAND.social.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-300 transition-colors hover:text-white"
+                className="text-slate-300 transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-teal/50 rounded"
                 aria-label="Facebook"
               >
                 <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
@@ -44,7 +44,7 @@ export default function Footer({ lang, dict }: { lang: Locale; dict: Dictionary 
                 href={BRAND.social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-slate-300 transition-colors hover:text-white"
+                className="text-slate-300 transition-colors hover:text-white focus:outline-none focus:ring-2 focus:ring-teal/50 rounded"
                 aria-label="LinkedIn"
               >
                 <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">

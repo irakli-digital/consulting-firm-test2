@@ -30,9 +30,10 @@ export default function HowItWorks({ dict }: { dict: Dictionary }) {
           {/* Photo */}
           <div className="relative hidden aspect-[4/5] overflow-hidden rounded-2xl lg:block">
             <Image
-              src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80"
-              alt="Professional consulting team"
+              src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7"
+              alt={dict.howItWorks.imageAlt}
               fill
+              priority
               className="object-cover"
               sizes="(min-width: 1024px) 50vw, 100vw"
             />

@@ -16,7 +16,7 @@ export default function LanguageToggle({ lang }: { lang: Locale }) {
     <div className="flex items-center gap-1 rounded-full bg-slate-100 p-1">
       <button
         onClick={() => switchLocale("en")}
-        className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
+        className={`rounded-full px-3 py-1 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-teal/50 ${
           lang === "en"
             ? "bg-white text-navy shadow-sm"
             : "text-slate-500 hover:text-navy"
@@ -27,7 +27,7 @@ export default function LanguageToggle({ lang }: { lang: Locale }) {
       </button>
       <button
         onClick={() => switchLocale("ka")}
-        className={`rounded-full px-3 py-1 text-sm font-medium transition-colors ${
+        className={`rounded-full px-3 py-1 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-teal/50 ${
           lang === "ka"
             ? "bg-white text-navy shadow-sm"
             : "text-slate-500 hover:text-navy"

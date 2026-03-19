@@ -21,7 +21,7 @@ export default function FormField({
     <div>
       <label htmlFor={name} className="mb-1.5 block text-sm font-medium text-navy">
         {label}
-        {required && <span className="ml-1 text-red-500">*</span>}
+        {required && <span className="ml-1 text-red-500" aria-hidden="true">*</span>}
       </label>
       {children || (
         <input
@@ -30,11 +30,13 @@ export default function FormField({
           type={type}
           placeholder={placeholder}
           required={required}
+          aria-describedby={error?.length ? `${name}-error` : undefined}
+          aria-invalid={!!error?.length}
           className="w-full rounded-lg border border-slate-200 px-4 py-3 text-navy transition-colors placeholder:text-slate-400 focus:border-teal focus:outline-none focus:ring-2 focus:ring-teal/20"
         />
       )}
       {error && error.length > 0 && (
-        <p className="mt-1 text-sm text-red-500">{error[0]}</p>
+        <p id={`${name}-error`} className="mt-1 text-sm text-red-500">{error[0]}</p>
       )}
     </div>
   );

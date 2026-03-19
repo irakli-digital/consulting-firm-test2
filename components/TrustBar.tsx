@@ -7,10 +7,16 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const hasAnimated = useRef(false);
+  const rafRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setCount(target);
+      return;
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -24,17 +30,20 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
             const progress = Math.min(elapsed / duration, 1);
             const eased = 1 - Math.pow(1 - progress, 3);
             setCount(Math.floor(eased * target));
-            if (progress < 1) requestAnimationFrame(animate);
+            if (progress < 1) rafRef.current = requestAnimationFrame(animate);
           };
 
-          requestAnimationFrame(animate);
+          rafRef.current = requestAnimationFrame(animate);
         }
       },
       { threshold: 0.5 }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
   }, [target]);
 
   return (

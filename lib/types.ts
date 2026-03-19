@@ -14,6 +14,7 @@ export interface Dictionary {
     testimonials: string;
     faq: string;
     contact: string;
+    skipToContent: string;
   };
   hero: {
     headline: string;
@@ -37,6 +38,7 @@ export interface Dictionary {
   howItWorks: {
     title: string;
     subtitle: string;
+    imageAlt: string;
     steps: Array<{
       step: string;
       title: string;
@@ -46,6 +48,10 @@ export interface Dictionary {
   permitGuides: {
     title: string;
     subtitle: string;
+    whatLabel: string;
+    whoLabel: string;
+    docsLabel: string;
+    timelineLabel: string;
     guides: Array<{
       title: string;
       what: string;
@@ -79,13 +85,15 @@ export interface Dictionary {
     email: string;
     mobile: string;
     permitType: string;
-    permitOptions: string[];
+    permitOptions: Array<{ key: string; label: string }>;
     description: string;
     privacy: string;
     submit: string;
     submitting: string;
     success: string;
     error: string;
+    errorUnavailable: string;
+    errorGeneral: string;
     validation: {
       firstNameRequired: string;
       lastNameRequired: string;
@@ -94,20 +102,6 @@ export interface Dictionary {
       privacyRequired: string;
     };
   };
-  servicesPage: {
-    title: string;
-    subtitle: string;
-    cta: string;
-    learnMore: string;
-    keyFeatures: string;
-    categories: Array<{
-      title: string;
-      icon: string;
-      description: string;
-      longDescription: string;
-      features: string[];
-    }>;
-  };
   footer: {
     tagline: string;
     contact: string;
@@ -115,11 +109,12 @@ export interface Dictionary {
     phone: string;
     address: string;
     rights: string;
+    social: string;
   };
 }
 
 export interface FormState {
   success: boolean;
   error: string | null;
-  fieldErrors: Record<string, string[]>;
+  fieldErrors: Partial<Record<string, string[]>>;
 }

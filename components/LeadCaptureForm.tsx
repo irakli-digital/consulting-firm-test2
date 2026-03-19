@@ -77,8 +77,8 @@ export default function LeadCaptureForm({ dict, lang }: { dict: Dictionary; lang
         >
           <option value="">—</option>
           {dict.form.permitOptions.map((opt) => (
-            <option key={opt} value={opt}>
-              {opt}
+            <option key={opt.key} value={opt.key}>
+              {opt.label}
             </option>
           ))}
         </select>
@@ -102,7 +102,7 @@ export default function LeadCaptureForm({ dict, lang }: { dict: Dictionary; lang
           id="privacy"
           name="privacy"
           type="checkbox"
-          className="mt-1 h-4 w-4 rounded border-slate-300 text-teal focus:ring-teal"
+          className="mt-1 h-4 w-4 rounded border-slate-300 text-teal focus:ring-2 focus:ring-teal/50"
         />
         <label htmlFor="privacy" className="text-sm text-slate-600">
           {dict.form.privacy}
