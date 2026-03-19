@@ -3,6 +3,7 @@
 import { leadFormSchema } from "@/lib/schemas";
 import type { FormState } from "@/lib/types";
 import { checkRateLimit } from "@/lib/rateLimit";
+import { getDb } from "@/lib/db";
 import { headers } from "next/headers";
 
 const errorMessages = {
@@ -79,7 +80,28 @@ export async function submitLead(
       language: lang,
       submittedAt: new Date().toISOString(),
     };
-    console.log("=== STEP 6: SENDING TO WEBHOOK ===", JSON.stringify(payload));
+
+    // Save to database
+    console.log("=== STEP 6: SAVING TO DATABASE ===");
+    const sql = getDb();
+    await sql.query(
+      `INSERT INTO leads (first_name, last_name, email, mobile, permit_type, description, language, submitted_at)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+      [
+        result.data.firstName,
+        result.data.lastName,
+        result.data.email,
+        result.data.mobile,
+        result.data.permitType || null,
+        result.data.description || null,
+        lang,
+        new Date().toISOString(),
+      ]
+    );
+    console.log("=== STEP 7: SAVED TO DATABASE ===");
+
+    // Send to webhook
+    console.log("=== STEP 8: SENDING TO WEBHOOK ===", JSON.stringify(payload));
 
     const response = await fetch(webhookUrl, {
       method: "POST",
@@ -88,7 +110,7 @@ export async function submitLead(
       body: JSON.stringify(payload),
     });
 
-    console.log("=== STEP 7: WEBHOOK RESPONSE ===", response.status);
+    console.log("=== STEP 9: WEBHOOK RESPONSE ===", response.status);
 
     if (!response.ok) {
       console.error("=== WEBHOOK NON-OK STATUS ===", response.status);
@@ -96,7 +118,7 @@ export async function submitLead(
     }
 
     const responseBody = await response.text();
-    console.log("=== STEP 8: RESPONSE BODY ===", responseBody);
+    console.log("=== STEP 10: RESPONSE BODY ===", responseBody);
 
     return { success: true, error: null, fieldErrors: {} };
   } catch (error) {
