@@ -90,6 +90,13 @@ export async function submitLead(
       throw new Error(`Webhook returned ${response.status}`);
     }
 
+    // Check if n8n returned an error in the response body
+    const responseBody = await response.json().catch(() => null);
+    if (responseBody?.error) {
+      console.error("n8n workflow error:", responseBody.error);
+      throw new Error(`n8n error: ${responseBody.error}`);
+    }
+
     return { success: true, error: null, fieldErrors: {} };
   } catch (error) {
     console.error("Form submission error:", error);
