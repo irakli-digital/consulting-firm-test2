@@ -83,42 +83,34 @@ export async function submitLead(
 
     // Save to database
     console.log("=== STEP 6: SAVING TO DATABASE ===");
-    const sql = getDb();
-    await sql.query(
-      `INSERT INTO leads (first_name, last_name, email, mobile, permit_type, description, language, submitted_at)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
-      [
-        result.data.firstName,
-        result.data.lastName,
-        result.data.email,
-        result.data.mobile,
-        result.data.permitType || null,
-        result.data.description || null,
-        lang,
-        new Date().toISOString(),
-      ]
-    );
-    console.log("=== STEP 7: SAVED TO DATABASE ===");
-
-    // Send to webhook
-    console.log("=== STEP 8: SENDING TO WEBHOOK ===", JSON.stringify(payload));
-
-    const response = await fetch(webhookUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      signal: AbortSignal.timeout(8000),
-      body: JSON.stringify(payload),
-    });
-
-    console.log("=== STEP 9: WEBHOOK RESPONSE ===", response.status);
-
-    if (!response.ok) {
-      console.error("=== WEBHOOK NON-OK STATUS ===", response.status);
-      throw new Error(`Webhook returned ${response.status}`);
+    try {
+      const sql = getDb();
+      const firstName = result.data.firstName;
+      const lastName = result.data.lastName;
+      const email = result.data.email;
+      const mobile = result.data.mobile;
+      const permitType = result.data.permitType || null;
+      const description = result.data.description || null;
+      const submittedAt = new Date().toISOString();
+      await sql`INSERT INTO leads (first_name, last_name, email, mobile, permit_type, description, language, submitted_at)
+       VALUES (${firstName}, ${lastName}, ${email}, ${mobile}, ${permitType}, ${description}, ${lang}, ${submittedAt})`;
+      console.log("=== STEP 7: SAVED TO DATABASE ===");
+    } catch (dbError) {
+      console.error("=== DATABASE ERROR ===", dbError);
+      // Continue to webhook even if DB fails
     }
 
-    const responseBody = await response.text();
-    console.log("=== STEP 10: RESPONSE BODY ===", responseBody);
+    // Send to webhook (non-blocking — DB already has the lead)
+    console.log("=== STEP 8: SENDING TO WEBHOOK ===", JSON.stringify(payload));
+
+    fetch(webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      signal: AbortSignal.timeout(15000),
+      body: JSON.stringify(payload),
+    })
+      .then((res) => console.log("=== WEBHOOK RESPONSE ===", res.status))
+      .catch((err) => console.error("=== WEBHOOK ERROR (non-blocking) ===", err));
 
     return { success: true, error: null, fieldErrors: {} };
   } catch (error) {
